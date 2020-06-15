@@ -2,6 +2,8 @@
 require '../../core/functions.php';
 require '../../config/keys.php';
 require '../../core/db_connect.php';
+// require '../../core/sessions.php';
+// checkSession();
 
 // Get the post
 $get = filter_input_array(INPUT_GET);

@@ -1,6 +1,36 @@
+<!-- Set session in php -->
+<?php
+function active($name){
+  $current = $_SERVER['REQUEST_URI'];
+  if($current === $name){
+    return 'active';
+  }
+
+  return null;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+<!-- Add sanitized content -->
+  <?php if(!empty($meta)): ?>
+
+<?php if(!empty($meta['title'])): ?>
+  <title><?php echo $meta['title']; ?></title>
+<?php endif; ?>
+
+<?php if(!empty($meta['description'])): ?>
+  <meta name="description" content="<?php echo $meta['description']; ?>">
+<?php endif; ?>
+
+<?php if(!empty($meta['keywords'])): ?>
+  <meta name="keywords" content="<?php echo $meta['keywords']; ?>">
+<?php endif; ?>
+
+<?php endif; ?>
+<!-- End sanitized content -->
+
       <meta charset="UTF-8">
       <title>Hello Welcome to MicroTrain2005</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +49,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
-                <!-- <a class="nav-item nav-link" href="resume.html">Resume</a>
-                <a class="nav-item nav-link" href="contact.html">Contact</a>
-                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+                <!-- <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a> -->
+                <li class="nav-item">
+                  <a class="nav-link <?php echo active('/'); ?>" href="index.php">Home</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link <?php echo active('resume.php'); ?>" href="resume.php">Resume</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link <?php echo active('contact.php'); ?>" href="contact.php">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <?php echo active('/posts/'); ?>" href="posts/">Posts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link <?php echo active('/users/'); ?>" href="users/">Users</a>
+                </li>
+
+                <li class="nav-item">
+                  <?php if(!empty($_SESSION['user']['id'])): ?>
+                    <a class="nav-link" href="logout.php">Logout</a>
+                  <?php else: ?>
+                    <a class="nav-link <?php echo active('login.php'); ?>" href="login.php">Login</a>
+                  <?php endif; ?>
+                </li>
+               <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
               </div>
             </div>
       </nav>
@@ -121,7 +172,7 @@
     
       </div>
 
-      <script>
+      <!-- <script>
         var toggleMenu = document.getElementById('toggleMenu');
         var nav = document.querySelector('nav');
         toggleMenu.addEventListener(
@@ -134,7 +185,7 @@
             }
           }
         );
-      </script>
+      </script> -->
   
 
     </body>

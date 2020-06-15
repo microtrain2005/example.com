@@ -1,6 +1,8 @@
 <?php
 require '../../config/keys.php';
 require '../../core/db_connect.php';
+require '../../core/sessions.php';
+checkSession();
 
 $args=[
   'id'=>FILTER_UNSAFE_RAW,
