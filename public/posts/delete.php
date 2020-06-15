@@ -17,7 +17,7 @@ $row = $stmt->fetch();
 if(!empty($input['confirm'])){
   $stmt = $pdo->prepare("DELETE FROM posts WHERE id=:id");
   if($stmt->execute(['id'=>$id])){
-    header('Location: /posts/');
+    header('Location: /example.com/public/posts/');
   }
 }
 

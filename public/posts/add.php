@@ -26,12 +26,15 @@ if(!empty($input)){
     $slug = slug($input['title']);
 
     //Sanitiezed insert
-    $sql = 'INSERT INTO posts SET id=uuid(), title=?, slug=?, body=?';
+    $sql = 'INSERT INTO posts SET id=uuid(), title=?, slug=?, body=?, meta_description=?, meta_keywords=?'
+    ;
 
     if($pdo->prepare($sql)->execute([
         $input['title'],
         $slug,
-        $input['body']
+        $input['body'],
+        $input['meta_description'],
+        $input['meta_keywords']
     ])){
        header('LOCATION:/example.com/public/posts/');
     }else{
