@@ -1,4 +1,5 @@
 <?php
+require '../core/functions.php';
 
 $meta=[];
 $meta['title']='MicroTrain 2005';

@@ -1,11 +1,11 @@
 <?php
 //Any page that  works with session data MUST include session_start()
-session_start();
+// session_start();
 
 //Redirects a user to a login page if there is no active session
-function checkSession(){
+// function checkSession(){
 
-  $goto='/';
+//   $goto='/';
   $hasSession=false;
   if(!empty($_SESSION['user']['id'])){
     $hasSession=true;
@@ -19,4 +19,4 @@ function checkSession(){
     header('Location: /login.php?goto='.$goto.$qs);
   }
 
-}
+// }

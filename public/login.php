@@ -1,22 +1,28 @@
 <?php
-// require '../bootstrap.php';
-// require '../core/sessions.php';
 // 1. Connect to the database
 require '../config/keys.php';
 require '../core/db_connect.php';
 require '../core/functions.php';
 
 // 2. Filter the user inputs
-$input = filter_input_array(INPUT_POST,[
+// $input = filter_input_array(INPUT_POST,[
+//     'email'=>FILTER_SANITIZE_EMAIL,
+//     'password'=>FILTER_UNSAFE_RAW
+// ]);
+
+// Pass user inputs as arguments
+$args = [
     'email'=>FILTER_SANITIZE_EMAIL,
-    'password'=>FILTER_UNSAFE_RAW
-]);
+    'password'=>FILTER_UNSAFE_RAW,
+  ];
+
+$input = filter_input_array(INPUT_POST, $args);  
 
 // 3. Check for a POST request
 if(!empty($input)){
 
     // 4. Query the database for the requested user
-    $input = array_map('trim', $input);
+    // $input = array_map('trim', $input);
     $sql='SELECT id, hash FROM users WHERE email=:email';
     $stmt=$pdo->prepare($sql);
     $stmt->execute([
@@ -32,8 +38,15 @@ if(!empty($input)){
             $_SESSION['user'] = [];
             $_SESSION['user']['id']=$row['id'];
 
+            $args = [
+                'goto'=>FILTER_SANITIZE_STRING,
+              ];
+          
             // 6.2 Redirect the user
-            header('LOCATION: ' . $_POST['goto']);
+            // header('LOCATION: ' . $_POST['goto']);
+            $get = filter_input_array(INPUT_GET, $args);
+            $goto = !empty($get['goto'])?$get['goto']:'/';
+            header('LOCATION: ' . $goto);
         }
     }
 }
